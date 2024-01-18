@@ -59,17 +59,17 @@ button
 {
     color: red;
     display: none;
-}
-span
-{
-    display: none;
     font-size:small;
 }
+/* span
+{
+   
+} */
 
 .success_response{
-   
+   display: none;
     text-align: center;
-    color: #00a67;
+    color: #00a67d;
 }
     </style>
 </head>
@@ -151,7 +151,6 @@ if(responseData.password_error)
     document.getElementById('password_error').textContent=responseData.password_error;
 }
 
-///hhh
 if(responseData.cpassword_error)
 {
     document.getElementById('cpassword_error').textContent=responseData.cpassword_error;
@@ -172,7 +171,7 @@ else
                     element.textContent = '';
                 });
                 document.getElementById('success_response').textContent = responseData.message;
-            window.location.replace("login.php");
+               window.location.href="login.html";
 
 }
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <div style="max-width: 600px; margin: 0 auto;">
+
+        <img src="https://writestylesonline.com/wp-content/uploads/2016/08/Follow-These-Steps-for-a-Flawless-Professional-Profile-Picture.jpg" alt="Site Logo" style="width: 100%; max-height: 150px;">
+
+        <h2>User Profile</h2>
+
+        <p id="fname"><strong>First Name:</strong></p>
+        <p id="lname"><strong>Last Name:</strong></p>
+        <p id="email"><strong>Email:</strong></p>
+        <p id="mobile"><strong>Mobile:</strong></p>
+      
+    </div>
+
+</body>
+
+
+<script>
+    function fetchUserProfile() {
+    fetch('profile.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('fname').textContent = "First Name: " + data.data.fname;
+            document.getElementById('lname').textContent = "Last Name: " + data.data.lname;
+            document.getElementById('email').textContent = "Email: " + data.data.email;
+            document.getElementById('mobile').textContent = "Mobile: " + data.data.mobile;
+
+            console.log(data);
+        } else {
+            console.log(data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+fetchUserProfile();
+
+    </script>
+</html>

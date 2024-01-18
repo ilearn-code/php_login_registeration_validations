@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
          {
 
             $response["password_error"] = "Password is required";
-            if(empty($$confirm_password))
+            if(empty($confirm_password))
             {
                $response["cpassword_error"] = "Confirm Password is required";
             }
@@ -71,12 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             }
 
         }
-
-
-
-
-
-
 
 
 

@@ -59,7 +59,21 @@ a {
 a:hover {
     background-color: #c0392b;
 }
+#delete_button
+{
+text-decoration: none;
+padding: 10px 20px;
+margin: 20px;
+background-color: re;
+color: #fff;
+border-radius: 5px;
+transform: background-color 0.3s ease;
 
+}
+#delete_button:hover
+{
+    background-color: rgb(148, 18, 18);
+}
        
     </style>
 </head>
@@ -78,7 +92,7 @@ a:hover {
     <p id="email"><strong>Email:</strong></p>
     <p id="mobile"><strong>Mobile:</strong></p>
     <a href="logout.php" type="submit" >Logout</a>
-
+    <a href="delete.php" type="submit" method="POST" id="delete_button">Delete User</a>
 </span>
   
 

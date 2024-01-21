@@ -3,9 +3,6 @@ include("conn.php");
 $response=[];
 
 
-
-// if($_SERVER['REQUEST_METHOD']==='POST')
-// {
 session_start();
 $delete_id=$_SESSION['user_id'];
 
@@ -24,12 +21,6 @@ else
 
 
 
-
-// }
-// else
-// {
-//   $response[]=['success'=> '0','message'=> 'invalid request'];
-// }
 
 echo json_encode($response);
 

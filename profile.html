@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,18 +38,18 @@
             text-align: center;
         }
 
-     .left-start {
+        .left-start {
             display: inline-block;
             text-align: left;
-        } 
+        }
 
         .left-start p {
             margin: 10px 0;
-        } 
+        }
 
         #logout_button {
             display: inline-block;
-            margin-top: 20px;
+       
             padding: 10px 20px;
             background-color: #e74c3c;
             color: #fff;
@@ -64,7 +65,7 @@
         #delete_button {
             text-decoration: none;
             padding: 10px 20px;
-            margin: 20px;
+            margin: 10px 0 10px 0;
             background-color: #e74c3c;
             color: #fff;
             border-radius: 5px;
@@ -76,92 +77,117 @@
         }
 
 
-        #editForm{
+        #editForm {
             display: none;
-          
+
         }
-        #editForm input
-        {
+
+        #editForm input {
             display: block;
             width: 100%;
-          border: 2px solid #777;
-          border-radius: 2px;
-          margin: 10px 0 10px 0; 
-          padding: 10px 20px;
+            border: 2px solid #777;
+            border-radius: 2px;
+            margin: 10px 0 10px 0;
+            padding: 10px 20px;
 
         }
 
-        #editForm label
-        {
+        #editForm label {
             display: block;
-        
+
 
         }
-#editForm button
-{
-    display: block;
-    width: 100%;
-    color: #fff;
-    padding: 10px 20px;
-    margin: 20px 0 10px 0;
-    border-radius: 2px;
-    border:  2px solid #777;
-    background-color: #05c46b;
-    font-size: medium;
-    transform: background-color 0.3s ease;
-}
 
-#editForm button:hover{
-    background-color: #0b5b35;
-}
+        #editForm button {
+            display: block;
+            width: 100%;
+            color: #fff;
+            padding: 10px 20px;
+            margin: 20px 0 10px 0;
+            border-radius: 2px;
+            border: 2px solid #777;
+            background-color: #05c46b;
+            border: none;
+            font-size: medium;
+            transform: background-color 0.3s ease;
+        }
 
-#img-span img
-{
-    text-align: center;
-}
+        #editForm button:hover {
+            background-color: #0b5b35;
+        }
+
+        #img-span img {
+            text-align: center;
+        }
+        #details
+        {
+            text-align: center;
+        }
+
+         /* span
+        {
+            text-align: left;
+        } */
+        #details button {
+            display: inline-block;
+        
+            border-radius: 5px;
+            padding: 8px 20px;
+            padding-top: 14px;
+            border: none;
+         margin-top: 10px;
+         color: #fff;
+         font-size: medium;
+            background-color: #05c46b;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2>User Profile</h2>
-<img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png" style="width: 40%; max-height: 200px; margin: auto;">
+        <div style="text-align: center;">
+            <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png" style="width: 40%; max-height: 200px; margin: auto;">
+        </div>
 
+        <form id="editForm">
 
-                <form id="editForm" >
+            <label for="input-fname">First Name</label>
+            <input type="text" id="input-fname" name="fname">
+            <label for="input-lname">Last Name</label>
+            <input type="text" id="input-lname" name="lname">
+            <label for="input-email">Email</label>
+            <input type="text" id="input-email" name="email">
+            <label for="input-mobile">Mobile</label>
+            <input type="text" id="input-mobile" name="mobile">
 
-                    <label for="input-fname">First Name</label>
-                    <input type="text" id="input-fname" name="fname" >
-                    <label for="input-lname">Last Name</label>
-                    <input type="text"  id="input-lname"   name="lname" >
-                    <label for="input-email">Email</label>
-                    <input type="text"   id="input-email"  name="email" >
-                    <label for="input-mobile">Mobile</label>
-                    <input type="text"   id="input-mobile"  name="mobile" >
-                    
-                    <button type="submit" onclick="Update(event)">Save</button>
+            <button type="submit" onclick="Update(event)">Save</button>
 
-                </form>
+        </form>
 
-<span id="details">
-
-    <p >First Name:<strong id="fname"></strong></p>
-                
-    <p >Last Name:<strong id="lname"></strong></p>
-    <p >Email:<strong id="email"></strong></p>
-    <p >Mobile:<strong id="mobile"></strong></p>
-
+        <div id="details">
+<span>
+    <p>First Name:<strong id="fname"></strong></p>
+    <p>Last Name:<strong id="lname"></strong></p>
+    <p>Email:<strong id="email"></strong></p>
+    <p>Mobile:<strong id="mobile"></strong></p>
     <a href="logout.php" type="submit" id="logout_button">Logout</a>
     <a href="delete.php" type="submit" method="POST" id="delete_button">Delete User</a>
     <button type="submit" onclick="ToggleEdit()">Edit</button>
 
-
-</span>
-              
-        
-
+</div>
+            
+            
 
 
-        </div>
+        </span>
+
+
+
+
+
+    </div>
     </div>
 
     <script>
@@ -172,23 +198,23 @@
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('fname').textContent =data.data.fname;
-                    document.getElementById('lname').textContent = data.data.lname;
-                    document.getElementById('email').textContent = data.data.email;
-                    document.getElementById('mobile').textContent =data.data.mobile;
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('fname').textContent = data.data.fname;
+                        document.getElementById('lname').textContent = data.data.lname;
+                        document.getElementById('email').textContent = data.data.email;
+                        document.getElementById('mobile').textContent = data.data.mobile;
 
-                    document.getElementById('input-fname').value =data.data.fname;
-                    document.getElementById('input-lname').value = data.data.lname;
-                    document.getElementById('input-email').value = data.data.email;
-                    document.getElementById('input-mobile').value =data.data.mobile;
-                } else {
-                    console.log(data);
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                        document.getElementById('input-fname').value = data.data.fname;
+                        document.getElementById('input-lname').value = data.data.lname;
+                        document.getElementById('input-email').value = data.data.email;
+                        document.getElementById('input-mobile').value = data.data.mobile;
+                    } else {
+                        console.log(data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
 
 
@@ -197,52 +223,52 @@
 
 
 
-        function ToggleEdit()
-        {
+        function ToggleEdit() {
             document.getElementById('editForm').style.display = 'block';
-                    document.getElementById('details').style.display = 'none';
+            document.getElementById('details').style.display = 'none';
 
         }
         function Update(event) {
-    event.preventDefault();
+            event.preventDefault();
 
-    // Fetch updated values from the form
-    const newFname = document.getElementById('input-fname').value;
-    const newLname = document.getElementById('input-lname').value;
-    const newEmail = document.getElementById('input-email').value;
-    const newMobile = document.getElementById('input-mobile').value;
+            // Fetch updated values from the form
+            const newFname = document.getElementById('input-fname').value;
+            const newLname = document.getElementById('input-lname').value;
+            const newEmail = document.getElementById('input-email').value;
+            const newMobile = document.getElementById('input-mobile').value;
 
-    if (newFname !== '' || newLname !== '' || newEmail !== '' || newMobile !== '') {
-        const formData = new FormData();
-        formData.append('fname', newFname);
-        formData.append('lname', newLname);
-        formData.append('email', newEmail);
-        formData.append('mobile', newMobile);
+            if (newFname !== '' || newLname !== '' || newEmail !== '' || newMobile !== '') {
+                const formData = new FormData();
+                formData.append('fname', newFname);
+                formData.append('lname', newLname);
+                formData.append('email', newEmail);
+                formData.append('mobile', newMobile);
 
-        console.log(formData);
+                console.log(formData);
 
-        // Fetch data when the "Save" button is clicked
-        fetch('update.php', { method: 'POST', body: formData })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log(data.success);
-                  
-
-                    // Hide the edit form and show user details again
-                    document.getElementById('editForm').style.display = 'none';
-                    document.getElementById('details').style.display = 'block';
-
-                   
-                }
-                console.log(data);
-            }).then(()=> fetchUserProfile())
-            .catch(error => console.error(error));
-    }
-}
+                // Fetch data when the "Save" button is clicked
+                fetch('update.php', { method: 'POST', body: formData })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log(data.success);
 
 
-     
+                            // Hide the edit form and show user details again
+                            document.getElementById('editForm').style.display = 'none';
+                            document.getElementById('details').style.display = 'block';
+
+
+                        }
+                        console.log(data);
+                    }).then(() => fetchUserProfile())
+                    .catch(error => console.error(error));
+            }
+        }
+
+
+
     </script>
 </body>
+
 </html>

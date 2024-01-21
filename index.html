@@ -110,7 +110,7 @@ button:hover
     <span class="error-message" id="cpassword_error">*</span>
 
     <label for="mnumber">Mobile Number</label>
-    <input id="mnumber" type="text" name="mobile">
+    <input id="mnumber" type="number" name="mobile">
     <span class="error-message" id="mobile_error">*</span>
 
     <button type="submit">Sign Up</button>
@@ -132,7 +132,7 @@ let response = await fetch('register.php', {
 let responseData= await response.json();
 if(responseData.message!=="User Registered Successfully")
 {
-   
+   console.log(responseData);
 const errorSpan= document.querySelectorAll('.error-message');
 
 errorSpan.forEach(element=>{ element.style.display = 'block';

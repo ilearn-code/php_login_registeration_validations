@@ -83,7 +83,7 @@ if(empty($mobile))
 else{  
     $mmobile=preg_replace('/[^0-9]/', '', $mobile);
     
-    if (strlen($mmobile) !== 10 ) {
+    if (strlen($mobile) !== 10 ) {
         $response['mobile_error'] = "Invalid Mobile Number";
     }
 }

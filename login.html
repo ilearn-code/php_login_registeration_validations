@@ -1,162 +1,153 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
- <style>
-*{
+    <style>
+        * {
 
-padding: 0;
-margin: 0;
-box-sizing: border-box;
-}
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
 
-body{
-background-color: #05c46b;
-font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+        body {
+            background-color: #05c46b;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
 
-form
-{
+        form {
 
-max-width: 500px;
-margin: 70px auto;
+            max-width: 500px;
+            margin: 70px auto;
 
-background-color: #fff;
-border-radius: 10px;
-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-padding: 20px 20px;
-}
-label{
-display: block;
-font-family: inherit;
-margin:10px 0 10px 0 ;
-}
+            padding: 20px 20px;
+        }
 
-input
-{
-width: 100%;
-border: 1px solid #777;
-border-radius: 2px;
-padding: 10px;
-font-family: inherit;
-font-weight: 1px;
-}
-button
-{
-display: block;
-width: 100%;
-margin: 20px 0 20px 0;
-background-color: #05c46b;
-padding: 10px;
-font-family: inherit;
-transform: background-color 0.3s ease;
-border-radius: 5px;
-}
-button:hover
-{
-    background-color: #13a762;
-}
-img
-{
-    max-height:150px ;
-    width: 100%;
-}
+        label {
+            display: block;
+            font-family: inherit;
+            margin: 10px 0 10px 0;
+        }
 
-.error-message
-{
-    color: red;
-    display: none;
-    font-size: small;
-}
+        input {
+            width: 100%;
+            border: 1px solid #777;
+            border-radius: 2px;
+            padding: 10px;
+            font-family: inherit;
+            font-weight: 1px;
+        }
 
-.success-message
-{
-    
-    text-align: center;
-    color: #00a67d;
-    display: none;
-}
-</style>
+        button {
+            display: block;
+            width: 100%;
+            margin: 20px 0 20px 0;
+            background-color: #05c46b;
+            padding: 10px;
+            font-family: inherit;
+            transform: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #13a762;
+        }
+
+        img {
+            max-height: 150px;
+            width: 100%;
+        }
+
+        .error-message {
+            color: red;
+            display: none;
+            font-size: small;
+        }
+
+        .success-message {
+
+            text-align: center;
+            color: #00a67d;
+            display: none;
+        }
+    </style>
 </head>
-<body>
-    
-   
-    
-    
-    <form  id="Login_form" action="login.php" method="POST">
-            
-<img src="https://images.freecreatives.com/wp-content/uploads/2015/04/logo025.png" alt="Site Logo">
-            <label for="email">Email </label>
-            <input type="email" name="email" >
-<span class="error-message" id="error_email"></span>
-            <label for="password">Password </label>
-            <input type="password" name="password">
-            <span class="error-message" id="error_password"></span>
 
-            <button type="submit" >Login</button>
-            <span class="success-message" id="success_message"></span>
-        </form>
+<body>
+
+
+
+
+    <form id="Login_form" action="login.php" method="POST">
+
+        <img src="https://images.freecreatives.com/wp-content/uploads/2015/04/logo025.png" alt="Site Logo">
+        <label for="email">Email </label>
+        <input type="email" name="email">
+        <span class="error-message" id="error_email"></span>
+        <label for="password">Password </label>
+        <input type="password" name="password">
+        <span class="error-message" id="error_password"></span>
+
+        <button type="submit">Login</button>
+        <span class="success-message" id="success_message"></span>
+    </form>
     <script>
 
-        document.getElementById('Login_form').addEventListener('submit',async (event)=>
-        
-        {
+        document.getElementById('Login_form').addEventListener('submit', async (event) => {
 
             event.preventDefault();
-            const formData=new FormData(event.target);
+            const formData = new FormData(event.target);
 
-let response=await fetch('login.php',{method:'POST', body:formData})
-
-
-
-    let responseData=await response.json();
-
-    console.log(responseData)
-    const errorSpan=document.querySelectorAll(
-        '.error-message');
-        errorSpan.forEach((element)=>
-        {
-            element.style.display='block';
-            element.textContent='';
-        });
-
-if(responseData.error_email)
-{
-document.getElementById('error_email').textContent=responseData.error_email;
-}
+            let response = await fetch('login.php', { method: 'POST', body: formData })
 
 
-if(responseData.error_password)
-{
-document.getElementById('error_password').textContent=responseData.error_password;
-}
+
+            let responseData = await response.json();
+
+            console.log(responseData)
+            const errorSpan = document.querySelectorAll(
+                '.error-message');
+            errorSpan.forEach((element) => {
+                element.style.display = 'block';
+                element.textContent = '';
+            });
+
+            if (responseData.errors.email) {
+                document.getElementById('error_email').textContent = responseData.errors.email;
+            }
+
+
+            if (responseData.errors.password) {
+                document.getElementById('error_password').textContent = responseData.errors.password;
+            }
 
 
 
 
-if(responseData.status==='success')
-{
+            if (responseData.success === 1) {
 
-    const successSpan=document.querySelectorAll(
-        '.success-message');
-        successSpan.forEach((element)=>
-        {
-            element.style.display='block';
-            element.textContent='';
-        });
-document.getElementById('success_message').textContent=responseData.status;
+                const successSpan = document.querySelectorAll(
+                    '.success-message');
+                successSpan.forEach((element) => {
+                    element.style.display = 'block';
+                    element.textContent = '';
+                });
+                document.getElementById('success_message').textContent = responseData.status;
 
-window.location.href='profile.html';
-}
+                window.location.href = 'profile.html';
+            }
 
 
-}
+        }
 
-        
+
         );
 
 
@@ -166,4 +157,5 @@ window.location.href='profile.html';
 
     </script>
 </body>
+
 </html>

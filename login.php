@@ -1,56 +1,49 @@
 <?php
 include "conn.php";
-$response = [];
+$response = ['success' => 0, 'errors' => []];
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     try {
         if (empty($_POST['email'])) {
-            $response['error_email'] = 'Email is required';
+            $response['errors']['email'] = 'Email is required';
         } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            $response['error_email'] = 'Enter a Valid Email';
-        } else {
+            $response['errors']['email'] = 'Enter a Valid Email';
+        } 
+
+        if (empty($_POST['password'])) {
+            $response['errors']['password'] = 'Password is required';
+        }
+        
+        if (empty($response['errors'])) {
             $email = $_POST['email'];
             $stmt = $conn->prepare("SELECT * FROM test_table_reg WHERE email = ?");
             $stmt->bindParam(1, $email);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($user) 
-            {
-
-                if (empty($_POST['password'])) {
-                    $response['error_password'] = "Password is required";
+            
+            if ($user) {
+                $password = $_POST['password'];
+                if (password_verify($password, $user['password'])) {
+                    session_start();
+                    $_SESSION['user_id'] = $user['id'];
+                    $response['success'] = 1;
                 } else {
-                    $password = $_POST['password'];
-        
-                   
-        
-                    if ($user && password_verify($password, $user['password'])) {
-                        session_start();
-                        $_SESSION['user_id'] = $user['id'];
-                        $response['status'] = "success";
-                    } else {
-                        $response['error_password'] = "Incorrect Password";
-                    }
+                    $response['errors']['password'] = 'Incorrect Password';
+                }
+            } else {
+                $response['errors']['email'] = 'User not Found';
             }
         }
-            else
-            {
-                $response['error_email'] = 'User not Found';
-            }
-
-
-        }
-        
-
-       
         
     } catch (PDOException $e) {
-        $response["Error"] = "Error: " . $e->getMessage();
+        $response['errors']['message'] = "Error: " . $e->getMessage();
     }
 
-    echo json_encode($response); 
-} else {
-    $response["message"] = "Error: Invalid request method.";
     echo json_encode($response);
+    exit(); // Stop script execution after sending response
+} else {
+    $response['errors']['message'] = 'Error: Invalid request method.';
+    echo json_encode($response);
+    exit(); // Stop script execution after sending response
 }
 ?>
